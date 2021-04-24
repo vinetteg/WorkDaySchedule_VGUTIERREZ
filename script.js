@@ -1,3 +1,5 @@
+events = [];
+
 //Current time display
 var timeDisplay = $("#time-display");
 
@@ -49,10 +51,16 @@ saveButton.addEventListener("click", function (event) {
   event.preventDefault();
   addToDo();
   renderToDo();
+  localStorage.setItem("saved-comment", JSON.stringify(events));
 });
 
 function init() {
   renderToDo();
 }
 
+setInterval(function () {
+  timeHighlight();
+}, 1000 * 60 * 60);
+
 init();
+timeHighlight();
