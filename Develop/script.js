@@ -1,12 +1,15 @@
-var currentTime = $(".time");
+//Current time display
+var timeDisplay = $("#time-display");
 
-var time = setInterval(myTimer, 1000);
+setInterval("displayTime()", 1000);
 
-function myTimer() {
-  var date = moment().format("dddd, MMMM Do YYYY, h:mm:ss a");
-  $("#currentTime").text(date);
+function displayTime() {
+  var rightNow = moment().format("MMM DD, YYYY [at] hh:mm:ss a");
+  timeDisplay.text(rightNow);
 }
 
+//local storage area for text box'
+var saveButton = document.getElementById("saveBtn");
 var comment = document.getElementById("todo");
 
 function addToDo() {
@@ -26,10 +29,26 @@ function renderToDo() {
   }
 }
 
+//highlighting area depending on time of day
+var timeHighlight = function () {
+  var currentTime = moment().hour();
+
+  for (var i = 8; i < 9; i++) {
+    var timeArea = $("#todo" + i);
+    if (currentTime > i) {
+      $(timeArea).addClass("past");
+    } else if (currentTime === i) {
+      $(timeArea).addClass("present");
+    } else {
+      $(timeArea).addClass("future");
+    }
+  }
+};
+
 saveButton.addEventListener("click", function (event) {
   event.preventDefault();
   addToDo();
-  renderToDo);
+  renderToDo();
 });
 
 function init() {
