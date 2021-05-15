@@ -22,7 +22,7 @@ function addToDo() {
 }
 
 function renderToDo() {
-  var lastToDo = JSON.parse(localStorage.getItem("newToDo"));
+  var lastToDo = JSON.parse(localStorage.getItem("addToDo"));
 
   if (lastToDo !== null) {
     document.getElementById("saved-comment").innerHTML = lastToDo.comment;
@@ -35,7 +35,7 @@ function renderToDo() {
 var timeHighlight = function () {
   var currentTime = moment().hour();
 
-  for (var i = 8; i < 9; i++) {
+  for (var i = 0; i < 9; i++) {
     var timeArea = $("#todo" + i);
     if (currentTime > i) {
       $(timeArea).addClass("past");
@@ -47,13 +47,6 @@ var timeHighlight = function () {
   }
 };
 
-saveButton.addEventListener("click", function (event) {
-  event.preventDefault();
-  addToDo();
-  renderToDo();
-  localStorage.setItem("saved-comment", JSON.stringify(events));
-});
-
 function init() {
   renderToDo();
 }
@@ -64,3 +57,9 @@ setInterval(function () {
 
 init();
 timeHighlight();
+
+saveButton.addEventListener("click", function (event) {
+  event.preventDefault();
+  addToDo();
+  renderToDo();
+});
